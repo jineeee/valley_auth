@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.SignUpActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/act_sign_up_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원가입"
+            android:textColor="@color/blue"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/act_sign_up_ll_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/act_sign_up_tv_title">
+
+            <EditText
+                android:id="@+id/act_sign_up_et_id"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/bg_e6e6eb_35"
+                android:hint="아이디"
+                android:inputType="text"
+                android:lines="1"
+                android:paddingLeft="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/act_sign_up_et_pw"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/bg_e6e6eb_35"
+                android:hint="비밀번호"
+                android:inputType="textPassword"
+                android:paddingLeft="20dp" />
+
+            <EditText
+                android:id="@+id/act_sign_up_et_pw_check"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/bg_e6e6eb_35"
+                android:hint="비밀번호 확인"
+                android:inputType="textPassword"
+                android:paddingLeft="20dp" />
+
+            <EditText
+                android:id="@+id/act_sign_up_et_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/bg_e6e6eb_35"
+                android:hint="이름"
+                android:inputType="text"
+                android:maxEms="10"
+                android:lines="1"
+                android:paddingLeft="20dp" />
+
+            <EditText
+                android:id="@+id/act_sign_up_et_department"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/bg_e6e6eb_35"
+                android:hint="부서"
+                android:inputType="text"
+                android:maxEms="30"
+                android:lines="1"
+                android:paddingLeft="20dp" />
+
+            <EditText
+                android:id="@+id/act_sign_up_et_rank"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/bg_e6e6eb_35"
+                android:hint="직급"
+                android:inputType="text"
+                android:maxEms="20"
+                android:lines="1"
+                android:paddingLeft="20dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/act_sign_up_tv_sign_up"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/bg_e6e6eb_35"
+            android:backgroundTint="@color/blue"
+            android:gravity="center"
+            android:text="가입하기"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            app:layout_constraintTop_toBottomOf="@id/act_sign_up_ll_info" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
