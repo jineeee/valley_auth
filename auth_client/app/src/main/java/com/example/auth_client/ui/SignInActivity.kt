@@ -1,15 +1,13 @@
 package com.example.auth_client.ui
 
+import NetworkServiceImpl
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
-import com.example.auth_client.Application
 import com.example.auth_client.R
-import com.example.auth_client.data.model.DefaultResponse
 import com.example.auth_client.data.model.SignInResponse
-import com.example.auth_client.data.model.UserListResponse
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_sign_in.*
@@ -17,6 +15,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

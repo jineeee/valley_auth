@@ -48,7 +48,6 @@ module.exports = {
     // 로그인
     signIn: async (req, res) => {
         const {id, pw} = req.body;
-        console.log('sign in req : ', req.body)
         // 값 확인
         if (!id || !pw) {
             return res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));

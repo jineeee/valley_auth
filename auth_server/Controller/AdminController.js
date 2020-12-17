@@ -2,13 +2,15 @@ const responseMessage = require('../modules/responseMessage');
 const statusCode = require('../modules/statusCode');
 const util = require('../modules/util');
 const adminModel = require('../model/admin');
+const jwt = require('../modules/jwt');
 
 module.exports = {
     // 관리자 정보 업데이트
     updateAdmin : async(req, res) => {
-        console.log(req.body);
+        const user = await jwt.verify(req.headers.token);
+        const id = user.user_id;
         try{
-            const result = await adminModel.updateAdmin(req.body.id);
+            const result = await adminModel.updateAdmin(id);
             if(result==1){
                 return res.status(statusCode.OK).send(util.successWithoutData(statusCode.OK, responseMessage.UPDATE_SUCCESS));
             }

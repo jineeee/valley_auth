@@ -20,9 +20,9 @@ const checkToken = {
         if (user === TOKEN_INVALID)
             return res.json(util.fail(statusCode.UNAUTHORIZED, responseMessage.INVALID_TOKEN));
         // 유효하지 않은 사용자
-        if (user.user_idx === undefined)
+        if (user.user_id === undefined)
             return res.json(util.fail(statusCode.UNAUTHORIZED, responseMessage.INVALID_TOKEN));
-        req.user_idx = user.user_idx;
+        req.user_id = user.user_id;
         next();
     }
 }
