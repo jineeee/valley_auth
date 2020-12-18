@@ -64,7 +64,6 @@ class SignInActivity : AppCompatActivity() {
                             Toast.makeText(this@SignInActivity, "아이디 또는 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show()
                         }
                         200 -> {
-                            SharedPreferenceController.setId(applicationContext, response.body()!!.data.id)
                             SharedPreferenceController.setAuthorization(applicationContext,response.body()!!.data.accessToken)
                             SharedPreferenceController.setAdmin(applicationContext,response.body()!!.data.admin)
 

@@ -8,6 +8,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 
 interface NetworkService {
     @POST("/user/signup")
@@ -28,10 +29,8 @@ interface NetworkService {
     @GET("/admin")
     fun getUserList(): Call<UserListResponse>
 
-    @POST("/admin")
-    fun postAdmin(
-        @Body body: JsonObject
-    ): Call<DefaultResponse>
+    @PUT("/admin")
+    fun putAdmin(): Call<DefaultResponse>
 
     @POST("/admin/update")
     fun updateUserInfo(

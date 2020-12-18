@@ -11,7 +11,7 @@ const checkToken = {
         // 토큰 없음
         if (!token)
             return res.json(util.fail(statusCode.BAD_REQUEST, responseMessage.EMPTY_TOKEN));
-        // decode
+        // 토큰 검증
         const user = await jwt.verify(token);
         // 유효기간 만료
         if (user === TOKEN_EXPIRED)

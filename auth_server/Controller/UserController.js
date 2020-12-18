@@ -68,7 +68,7 @@ module.exports = {
             console.log(userResult)
             // 성공
             return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.LOGIN_SUCCESS, {
-                id: id,
+                // id: id,
                 admin: userResult[0].admin,
                 accessToken: token, 
                 refreshToken: refreshToken

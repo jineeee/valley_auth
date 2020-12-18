@@ -5,7 +5,6 @@ const options = require('../config/secretKey').options;
 const TOKEN_EXPIRED = -3;
 const TOKEN_INVALID = -2;
 
-
 module.exports = {
     sign: async (user) => {
         const payload = {
@@ -35,5 +34,11 @@ module.exports = {
             }
         }
         return decoded;
+    },
+    refresh: (user) => {
+        const payload = {
+            user_id: user.id
+        };
+        return jwt.sign(payload, secretOrPrivateKey, options);
     }
 }

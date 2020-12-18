@@ -33,12 +33,7 @@ class NumberVerifyActivity : AppCompatActivity() {
     }
 
     private fun postAdmin() {
-        val jsonObject = JSONObject()
-        Log.e("rand id -> ", SharedPreferenceController.getId(applicationContext))
-        jsonObject.put("id", SharedPreferenceController.getId(applicationContext))
-
-        val body = JsonParser().parse(jsonObject.toString()) as JsonObject
-        val call: Call<DefaultResponse> = NetworkServiceImpl.SERVICE.postAdmin(body)
+        val call: Call<DefaultResponse> = NetworkServiceImpl.SERVICE.putAdmin()
         call.enqueue(
             object : Callback<DefaultResponse> {
                 override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
@@ -52,6 +47,7 @@ class NumberVerifyActivity : AppCompatActivity() {
                 ) {
                     when (response.code()) {
                         200 -> {
+                            SharedPreferenceController.setAdmin(applicationContext, "1")
                             Toast.makeText(
                                 this@NumberVerifyActivity,
                                 "인증에 성공했습니다.",
