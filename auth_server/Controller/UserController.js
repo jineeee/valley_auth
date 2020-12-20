@@ -27,7 +27,10 @@ module.exports = {
         }
 
         try {
-            const {salt, hashed} = await crypto.encrypt(pw);
+            const {
+                salt,
+                hashed
+            } = await crypto.encrypt(pw);
             const data = {
                 id,
                 salt,
@@ -52,7 +55,10 @@ module.exports = {
     },
     // 로그인
     signIn: async (req, res) => {
-        const {id, pw} = req.body;
+        const {
+            id,
+            pw
+        } = req.body;
         // 값 확인
         if (!id || !pw) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
@@ -73,16 +79,32 @@ module.exports = {
                 res.status(statusCode.UNAUTHORIZED).send(util.fail(statusCode.UNAUTHORIZED, responseMessage.MISS_MATCH_PW));
                 return;
             }
-            const {token, refreshToken} = await jwt.sign(userResult[0]);
-
-            console.log(userResult)
+            const {
+                token,
+                refreshToken
+            } = await jwt.sign(userResult[0]);
             // 성공
             res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.LOGIN_SUCCESS, {
                 // id: id,
                 admin: userResult[0].admin,
-                accessToken: token, 
+                accessToken: token,
                 refreshToken: refreshToken
             }));
+            return;
+        } catch (err) {
+            res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
+            return;
+        }
+    },
+    // ID 확인
+    verifyUser: async (req, res) => {
+        try {
+            const result = await userModel.idCheck(req.params.id)
+            if (result) {
+                res.status(statusCode.OK).send(util.successWithoutData(statusCode.OK, responseMessage.READ_SUCCESS));
+                return;
+            }
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER));
             return;
         } catch (err) {
             res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));

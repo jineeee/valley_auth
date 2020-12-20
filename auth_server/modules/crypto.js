@@ -12,7 +12,7 @@ module.exports = {
                     resolve({salt,hashed});
                 });
             } catch (err) {
-                console.log(err);
+                console.err(err);
                 reject(err);
             }
         })
@@ -26,7 +26,7 @@ module.exports = {
                     resolve(hashed);
                 });
             } catch (err) {
-                console.log(err);
+                console.err(err);
                 reject(err);
             }
         })

@@ -11,7 +11,7 @@ const rand = Math.floor(Math.random() * 1000000)+100000;
 
 module.exports = {
     // 인증 이메일 전송
-    emailVerify : async(req, res) => {
+    verifyEmail : async(req, res) => {
         // 이메일 확인
         if(!req.body.email || !req.body.email.includes("smilegate.com")){
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NOT_VALID_EMAIL));

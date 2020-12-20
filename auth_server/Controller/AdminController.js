@@ -37,7 +37,6 @@ module.exports = {
     },
     // 유저 정보 수정
     updateUserInfo : async(req, res) => {
-        console.log(req.body)
         const {id, name, department, rank } = req.body;
         // NULL 값 확인
         if (!id || !name || !department || !rank) {

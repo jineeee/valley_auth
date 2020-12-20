@@ -21,7 +21,7 @@ interface NetworkService {
         @Body body: JsonObject
     ): Call<SignInResponse>
 
-    @POST("/user/emailVerify")
+    @POST("/user/verifyEmail")
     fun emailVerify(
         @Body body: JsonObject
     ): Call<DefaultResponse>

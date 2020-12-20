@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/signup', userController.signUp);
 router.post('/signin', userController.signIn);
-router.post('/emailVerify', checkToken, emailController.emailVerify);
+router.get('/:id', userController.verifyUser)
+router.post('/verifyEmail', checkToken, emailController.verifyEmail);
 
 module.exports = router;

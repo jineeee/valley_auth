@@ -7,7 +7,7 @@ module.exports = {
             const result = await pool.queryParam(query);
             return result;
         }catch(err){
-            console.log('SIGN UP ERROR : ', err);
+            console.err('SIGN UP ERROR : ', err);
             throw err;
         }
     },
@@ -26,7 +26,7 @@ module.exports = {
             const result = await pool.queryParam(query);
             return result.length != 0;
         }catch(err){
-            console.log('ID CHECK ERROR : ', err);
+            console.err('ID CHECK ERROR : ', err);
             throw err;
         }
     }
