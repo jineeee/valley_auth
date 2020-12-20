@@ -42,8 +42,6 @@ class EmailVerifyActivity : AppCompatActivity() {
                     postEmail(email)
                 }
             }
-
-
         }
 
     }
