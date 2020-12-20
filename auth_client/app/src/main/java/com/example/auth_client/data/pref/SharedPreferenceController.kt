@@ -6,8 +6,8 @@ object SharedPreferenceController{
 
     private const val USER_NAME = "MYKEY"
     private const val myAuth = "myAuth"
+    private const val refreshAuth = "refreshAuth"
     private const val admin = "admin"
-    private const val autoLogin = "autoLogin"
 
     fun setAdmin(context: Context, id: String) {
         val pref =
@@ -50,6 +50,28 @@ object SharedPreferenceController{
             context.getSharedPreferences(USER_NAME, Context.MODE_PRIVATE) //현재 내 기기에서만 볼수 있는 데이터
         val editor = pref.edit()
         editor.remove(myAuth)
+        editor.apply()
+    }
+
+    fun setRefreshAuthorization(context: Context, authorization: String) {
+        val pref =
+            context.getSharedPreferences(USER_NAME, Context.MODE_PRIVATE) //현재 내 기기에서만 볼수 있는 데이터
+        val editor = pref.edit()
+        editor.putString(refreshAuth, authorization)
+        editor.apply()
+    }
+
+    fun getRefreshAuthorization(context: Context): String {
+        val pref =
+            context.getSharedPreferences(USER_NAME, Context.MODE_PRIVATE) //현재 내 기기에서만 볼수 있는 데이터
+        return pref.getString(refreshAuth, "")!!
+    }
+
+    fun deleteRefreshAuthorization(context: Context) {
+        val pref =
+            context.getSharedPreferences(USER_NAME, Context.MODE_PRIVATE) //현재 내 기기에서만 볼수 있는 데이터
+        val editor = pref.edit()
+        editor.remove(refreshAuth)
         editor.apply()
     }
 }

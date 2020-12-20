@@ -74,6 +74,7 @@ class SignInActivity : AppCompatActivity() {
                         200 -> {
                             SharedPreferenceController.setAuthorization(applicationContext,response.body()!!.data.accessToken)
                             SharedPreferenceController.setAdmin(applicationContext,response.body()!!.data.admin)
+                            SharedPreferenceController.setRefreshAuthorization(applicationContext, response.body()!!.data.refreshToken)
 
                             Toast.makeText(this@SignInActivity, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this@SignInActivity, MainActivity::class.java)
