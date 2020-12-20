@@ -113,8 +113,7 @@ module.exports = {
     },
     // 비밀번호 변경
     changePassword: async (req, res) => {
-        const user = await jwt.verify(req.headers.authorization.split(' ')[1]);
-        const id = user.user_id;
+        const id = req.userId
         const pw = req.body.pw;
         const newPw = req.body.newPw;
 

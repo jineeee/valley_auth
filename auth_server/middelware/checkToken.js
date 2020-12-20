@@ -20,8 +20,11 @@ const checkToken = {
         if (user === TOKEN_INVALID)
             return res.json(util.fail(statusCode.UNAUTHORIZED, responseMessage.INVALID_TOKEN));
         // 유효하지 않은 사용자
-        if (user.user_id === undefined)
+        if (user.userId === undefined)
             return res.json(util.fail(statusCode.UNAUTHORIZED, responseMessage.INVALID_TOKEN));
+        // payload 값을 req로 담아 전달
+        const {userId} = await jwt.verify(token);
+        req.userId = userId
         next();
     }
 }
