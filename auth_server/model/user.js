@@ -11,8 +11,8 @@ module.exports = {
             throw err;
         }
     },
-    signIn : async (req, res) => {
-        const query = `SELECT * FROM user WHERE id = '${req.body.id}'`;
+    signIn : async (id) => {
+        const query = `SELECT * FROM user WHERE id = '${id}'`;
         try{
             return await pool.queryParam(query);
         }catch(err){

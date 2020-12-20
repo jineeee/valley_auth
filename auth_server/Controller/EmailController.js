@@ -109,7 +109,6 @@ module.exports = {
                 };
                 const result = await userModel.changePassword(data);
                 if (result != 0) {
-                    console.log("temp -> ", tempPassword)
                     res.status(statusCode.OK).send(util.successWithoutData(statusCode.OK, responseMessage.SEND_EMAIL));
                     return;
                 }

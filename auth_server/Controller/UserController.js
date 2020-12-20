@@ -66,7 +66,7 @@ module.exports = {
         }
 
         try {
-            const userResult = await userModel.signIn(req);
+            const userResult = await userModel.signIn(id);
             // 존재하지 않는 계정
             if (userResult[0] === undefined) {
                 res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER));
@@ -107,6 +107,36 @@ module.exports = {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER));
             return;
         } catch (err) {
+            res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
+            return;
+        }
+    },
+    // 비밀번호 변경
+    changePassword: async (req, res) => {
+        const user = await jwt.verify(req.headers.token);
+        const id = user.user_id;
+        const pw = req.body.pw;
+        const newPw = req.body.newPw;
+
+        try{
+            const userResult = await userModel.signIn(id);
+            var hashed = await crypto.encryptWithSalt(pw, userResult[0].salt);
+            // 비밀번호 불일치
+            if (hashed !== userResult[0].hashed) {
+                res.status(statusCode.UNAUTHORIZED).send(util.fail(statusCode.UNAUTHORIZED, responseMessage.MISS_MATCH_PW));
+                return;
+            }
+
+            var {salt, hashed} = await crypto.encrypt(newPw);
+            const data = {id, salt, hashed};
+            const result = await userModel.changePassword(data);
+            if (result != 0) {
+                res.status(statusCode.OK).send(util.successWithoutData(statusCode.OK, responseMessage.UPDATE_SUCCESS));
+                return;
+            }
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.DB_ERROR));
+            return;
+        }catch(err){
             res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
             return;
         }
