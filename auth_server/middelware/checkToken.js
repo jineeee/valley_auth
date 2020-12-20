@@ -13,7 +13,6 @@ const checkToken = {
         return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.EMPTY_TOKEN));
         // 토큰 검증
         const user = await jwt.verify(token);
-        console.log(user);
         // 유효기간 만료
         if (user === TOKEN_EXPIRED)
             return res.status(statusCode.UNAUTHORIZED).send(util.fail(statusCode.UNAUTHORIZED, responseMessage.EXPIRED_TOKEN)); 

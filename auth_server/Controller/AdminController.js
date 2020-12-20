@@ -32,25 +32,28 @@ module.exports = {
             res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_SUCCESS, result));
             return;
         } catch (err) {
-
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, err.message));
+            return;
         }
     },
     // 개별 유저 정보 조회
     readUser: async (req, res) => {
         const userId = req.params.id;
-        redisClient.hgetall(userId, function (err, data) {
-            if(err){
+        redisClient.hget("userInfo", userId, function (err, data) {
+            if (err) {
                 res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, err.message));
                 return;
             }
             data = JSON.parse(data);
             if (data != null) {
-                res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_SUCCESS, data));
+                // console.log("redis -> ", data)
+                res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_SUCCESS, data[0]));
                 return;
             }
-        });
+        })
         try {
             const result = await adminModel.readUser(userId);
+            // console.log(result)
             redisClient.hset("userInfo", userId, JSON.stringify(result));
             res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_SUCCESS, result));
             return;
@@ -87,5 +90,20 @@ module.exports = {
         } catch (err) {
             return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
         }
+    },
+    async hashget(tag) {
+        return new Promise((resolve, reject) => {
+            redisClient.hget("userInfo", tag, (err, object) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    data = JSON.parse(data);
+                    if (data != null) {
+                        console.log("redis -> ", data)
+                        resolve(data)
+                    }
+                }
+            });
+        });
     }
 }
