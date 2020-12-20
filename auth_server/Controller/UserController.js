@@ -17,11 +17,13 @@ module.exports = {
         } = req.body;
         // NULL 값 확인
         if (!id || !pw || !name || !department || !rank) {
-            return res.status(statusCode.NO_CONTENT).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
+            return;
         }
         // ID 중복 확인
         if (await userModel.idCheck(req.body.id)) {
-            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.DUPLICATE_ID));
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.DUPLICATE_ID));
+            return;
         }
 
         try {
@@ -34,14 +36,17 @@ module.exports = {
                 department,
                 rank
             };
-            const idx = userModel.signUp(data);
+            const idx = await userModel.signUp(data);
+            // DB 저장 실패
             if (idx == -1) {
-                return res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, responseMessage.DB_ERROR));
+                res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.DB_ERROR));
+                return;
             }
-            return res.status(statusCode.OK).send(util.successWithoutData(statusCode.OK, responseMessage.CREATE_USER_SUCCESS));
+            // 성공
+            return res.status(statusCode.CREATED).send(util.successWithoutData(statusCode.OK, responseMessage.CREATE_USER_SUCCESS));
         } catch (err) {
-            return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
-            throw err;
+            res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
+            return;
         }
 
     },
@@ -50,33 +55,38 @@ module.exports = {
         const {id, pw} = req.body;
         // 값 확인
         if (!id || !pw) {
-            return res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
+            return;
         }
 
         try {
             const userResult = await userModel.signIn(req);
+            // 존재하지 않는 계정
             if (userResult[0] === undefined) {
-                return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER));
+                res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER));
+                return;
             }
 
             const hashed = await crypto.encryptWithSalt(pw, userResult[0].salt);
+            // 비밀번호 불일치
             if (hashed !== userResult[0].hashed) {
-                return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.MISS_MATCH_PW));
+                res.status(statusCode.UNAUTHORIZED).send(util.fail(statusCode.UNAUTHORIZED, responseMessage.MISS_MATCH_PW));
+                return;
             }
             const {token, refreshToken} = await jwt.sign(userResult[0]);
 
             console.log(userResult)
             // 성공
-            return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.LOGIN_SUCCESS, {
+            res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.LOGIN_SUCCESS, {
                 // id: id,
                 admin: userResult[0].admin,
                 accessToken: token, 
                 refreshToken: refreshToken
             }));
-
+            return;
         } catch (err) {
-            return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
-            throw err;
+            res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
+            return;
         }
     }
 }

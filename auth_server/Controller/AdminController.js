@@ -11,22 +11,28 @@ module.exports = {
         const id = user.user_id;
         try{
             const result = await adminModel.updateAdmin(id);
+            // 성공
             if(result==1){
-                return res.status(statusCode.OK).send(util.successWithoutData(statusCode.OK, responseMessage.UPDATE_SUCCESS));
+                res.status(statusCode.OK).send(util.successWithoutData(statusCode.OK, responseMessage.UPDATE_SUCCESS));
+                return;
             }
-            return res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, responseMessage.UPDATE_FAIL));
+            // DB 저장 실패
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.UPDATE_FAIL));
+            return;
         }catch(err){
-            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, err.message));
+            res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
+            return;
         }
     },
     // 유저 전체 조회
     readUsers : async(req, res) => {
         try{
             const result = await adminModel.readUsers();
-            console.log(result)
-            return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_SUCCESS, result));
+            res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_SUCCESS, result));
+            return;
         }catch(err){
-            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, err.message));
+            res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
+            return;
         }
     },
     // 유저 정보 수정
@@ -35,7 +41,7 @@ module.exports = {
         const {id, name, department, rank } = req.body;
         // NULL 값 확인
         if (!id || !name || !department || !rank) {
-            return res.status(statusCode.NO_CONTENT).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
+            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
         }
 
         try{
@@ -44,9 +50,9 @@ module.exports = {
             if(result!=0){
                 return res.status(statusCode.OK).send(util.successWithoutData(statusCode.OK, responseMessage.UPDATE_SUCCESS));
             }
-            return res.status(statusCode.DB_ERROR).send(util.fail(statusCode.DB_ERROR, responseMessage.UPDATE_FAIL));
+            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.UPDATE_FAIL));
         }catch(err){
-            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, err.message));
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
         }
     }
 }

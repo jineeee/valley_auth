@@ -65,7 +65,7 @@ class SignUpActivity : AppCompatActivity() {
                         400 -> {
                             Toast.makeText(this@SignUpActivity, "중복된 아이디 입니다.", Toast.LENGTH_SHORT).show()
                         }
-                        200 -> {
+                        201 -> {
                             Toast.makeText(this@SignUpActivity, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
                             intent.putExtra("id", act_sign_up_et_id.text.toString())
