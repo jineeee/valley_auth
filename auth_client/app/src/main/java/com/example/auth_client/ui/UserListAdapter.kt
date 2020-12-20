@@ -32,9 +32,9 @@ class UserListAdapter(private val context: Context) : RecyclerView.Adapter<UserI
         holder.itemView.setOnClickListener {
             val intent = Intent(context, UserEditActivity::class.java)
             intent.putExtra("id", data[position].id)
-            intent.putExtra("name", data[position].name)
-            intent.putExtra("department", data[position].department)
-            intent.putExtra("rank", data[position].rank)
+//            intent.putExtra("name", data[position].name)
+//            intent.putExtra("department", data[position].department)
+//            intent.putExtra("rank", data[position].rank)
             context.startActivity(intent)
         }
     }

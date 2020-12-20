@@ -59,9 +59,6 @@ class SignUpActivity : AppCompatActivity() {
                     response: Response<DefaultResponse>
                 ) {
                     when (response.code()) {
-                        204 -> {
-                            Toast.makeText(this@SignUpActivity, "값을 모두 입력해주세요", Toast.LENGTH_SHORT).show()
-                        }
                         400 -> {
                             Toast.makeText(this@SignUpActivity, "중복된 아이디 입니다.", Toast.LENGTH_SHORT).show()
                         }

@@ -2,6 +2,7 @@ package com.example.auth_client.data
 
 import com.example.auth_client.data.model.DefaultResponse
 import com.example.auth_client.data.model.SignInResponse
+import com.example.auth_client.data.model.UserInfoResponse
 import com.example.auth_client.data.model.UserListResponse
 import com.google.gson.JsonObject
 import retrofit2.Call
@@ -44,9 +45,14 @@ interface NetworkService {
     @PUT("/admin")
     fun putAdmin(): Call<DefaultResponse>
 
-    @POST("/admin/update")
+    @PUT("/admin/update")
     fun updateUserInfo(
         @Body body: JsonObject
     ): Call<DefaultResponse>
+
+    @GET("/admin/{id}")
+    fun getUserInfo(
+        @Path("id") id: String
+    ): Call<UserInfoResponse>
 
 }
