@@ -1,5 +1,7 @@
 import com.example.auth_client.CookiesInterceptor
+import com.example.auth_client.TokenAuthenticator
 import com.example.auth_client.data.NetworkService
+import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -9,7 +11,9 @@ object NetworkServiceImpl {
     private const val BASE_URL = "http://192.168.0.4:3000"
 
     private val okHttpClient: OkHttpClient =
-        OkHttpClient.Builder().addInterceptor(CookiesInterceptor())
+        OkHttpClient.Builder()
+            .authenticator(TokenAuthenticator())
+            .addInterceptor(CookiesInterceptor())
             .addNetworkInterceptor(CookiesInterceptor())
             .connectTimeout(1, TimeUnit.MINUTES)
             .readTimeout(30, TimeUnit.SECONDS)

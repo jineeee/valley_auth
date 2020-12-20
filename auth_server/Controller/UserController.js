@@ -113,13 +113,19 @@ module.exports = {
     },
     // 비밀번호 변경
     changePassword: async (req, res) => {
-        const user = await jwt.verify(req.headers.token);
+        const user = await jwt.verify(req.headers.authorization.split(' ')[1]);
         const id = user.user_id;
         const pw = req.body.pw;
         const newPw = req.body.newPw;
 
         try{
             const userResult = await userModel.signIn(id);
+            // 존재하지 않는 계정
+            if (userResult[0] === undefined) {
+                res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER));
+                return;
+            }
+
             var hashed = await crypto.encryptWithSalt(pw, userResult[0].salt);
             // 비밀번호 불일치
             if (hashed !== userResult[0].hashed) {

@@ -7,7 +7,8 @@ const TOKEN_INVALID = -2;
 
 const checkToken = {
     checkToken: async (req, res, next) => {
-        var token = req.headers.token;
+        var token = req.headers.authorization.split(' ')[1];
+        console.log(token);
         // 토큰 없음
         if (!token)
             return res.json(util.fail(statusCode.BAD_REQUEST, responseMessage.EMPTY_TOKEN));
@@ -22,7 +23,6 @@ const checkToken = {
         // 유효하지 않은 사용자
         if (user.user_id === undefined)
             return res.json(util.fail(statusCode.UNAUTHORIZED, responseMessage.INVALID_TOKEN));
-        req.user_id = user.user_id;
         next();
     }
 }

@@ -7,7 +7,7 @@ const jwt = require('../modules/jwt');
 module.exports = {
     // 관리자 정보 업데이트
     updateAdmin : async(req, res) => {
-        const user = await jwt.verify(req.headers.token);
+        const user = await jwt.verify(req.headers.authorization.split(' ')[1]);
         const id = user.user_id;
         try{
             const result = await adminModel.updateAdmin(id);
