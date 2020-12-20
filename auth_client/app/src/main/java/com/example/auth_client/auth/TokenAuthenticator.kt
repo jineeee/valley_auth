@@ -1,5 +1,6 @@
 package com.example.auth_client.auth
 
+import android.util.Log
 import androidx.annotation.Nullable
 import com.example.auth_client.Application
 import com.example.auth_client.data.pref.SharedPreferenceController
@@ -12,22 +13,22 @@ import okhttp3.Route
 class TokenAuthenticator : Authenticator {
     @Nullable
     override fun authenticate(route: Route?, response: Response?): Request? {
+        Log.e("AUTHENTICATOR ", response.toString())
+
         val accessToken: String = SharedPreferenceController.getAuthorization(Application.getApplicationContext())
+
         if (!isRequestWithAccessToken(response!!) || accessToken.isEmpty()) {
             return null
         }
 
         synchronized(this) {
-            val newAccessToken: String =
-                SharedPreferenceController.getAuthorization(Application.getApplicationContext())
+            val newAccessToken: String = SharedPreferenceController.getAuthorization(Application.getApplicationContext())
             if (accessToken != newAccessToken) {
                 return newRequestWithAccessToken(response.request(), newAccessToken)
             }
 
             // Need to refresh an access token
-            val updatedAccessToken: String =  SharedPreferenceController.getRefreshAuthorization(
-                Application.getApplicationContext()
-            )
+            val updatedAccessToken: String =  SharedPreferenceController.getRefreshAuthorization(Application.getApplicationContext())
             return newRequestWithAccessToken(response.request(), updatedAccessToken)
         }
     }
@@ -38,8 +39,11 @@ class TokenAuthenticator : Authenticator {
     }
 
     private fun newRequestWithAccessToken(request: Request, accessToken: String): Request? {
-        return request.newBuilder().header("Content-Type", "application/json")
-            .header("token", accessToken)
+        return request.newBuilder()
+            .removeHeader("Authorization")
+            .header("Authorization", "Bearer $accessToken")
             .build()
     }
+
+
 }

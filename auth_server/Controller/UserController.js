@@ -51,7 +51,6 @@ module.exports = {
             res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
             return;
         }
-
     },
     // 로그인
     signIn: async (req, res) => {
@@ -64,7 +63,6 @@ module.exports = {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
             return;
         }
-
         try {
             const userResult = await userModel.signIn(id);
             // 존재하지 않는 계정
@@ -72,7 +70,6 @@ module.exports = {
                 res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER));
                 return;
             }
-
             const hashed = await crypto.encryptWithSalt(pw, userResult[0].salt);
             // 비밀번호 불일치
             if (hashed !== userResult[0].hashed) {
@@ -83,6 +80,7 @@ module.exports = {
                 token,
                 refreshToken
             } = await jwt.sign(userResult[0]);
+
             // 성공
             res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.LOGIN_SUCCESS, {
                 // id: id,
@@ -92,6 +90,7 @@ module.exports = {
             }));
             return;
         } catch (err) {
+            console.err(err);
             res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
             return;
         }

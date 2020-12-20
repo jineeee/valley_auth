@@ -38,7 +38,7 @@ class UserListActivity : AppCompatActivity() {
         call.enqueue(
             object : Callback<UserListResponse> {
                 override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
-                    Toast.makeText(this@UserListActivity, "조회에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@UserListActivity, "네트워크를 확인해주세요.", Toast.LENGTH_SHORT).show()
                 }
                 override fun onResponse(
                     call: Call<UserListResponse>,

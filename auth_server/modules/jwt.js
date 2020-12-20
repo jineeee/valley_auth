@@ -1,18 +1,20 @@
 const randToken = require('rand-token');
 const jwt = require('jsonwebtoken');
 const secretKey = require('../config/secretKey').secretKey;
-const options = require('../config/secretKey').options;
+const option = require('../config/secretKey').option;
+const refreshOption = require('../config/secretKey').refreshOption;
 const TOKEN_EXPIRED = -3;
 const TOKEN_INVALID = -2;
 
 module.exports = {
+    // access token 발급
     sign: async (user) => {
         const payload = {
             userId: user.id
         };
         const result = {
-            token: jwt.sign(payload, secretKey, options),
-            refreshToken: randToken.uid(256)
+            token: jwt.sign(payload, secretKey, option),
+            refreshToken: jwt.sign(payload, secretKey, refreshOption)
         };
         return result;
     },
@@ -39,6 +41,6 @@ module.exports = {
         const payload = {
             user_id: user.id
         };
-        return jwt.sign(payload, secretOrPrivateKey, options);
+        return jwt.sign(payload, secretKey, option);
     }
 }

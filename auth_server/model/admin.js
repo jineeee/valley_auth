@@ -21,6 +21,16 @@ module.exports = {
             throw err;
         }
     },
+    readUser : async(id) => {
+        const query = `SELECT id, name, department, \`rank\`, admin FROM user WHERE id = '${id}'`;
+        try{
+            const result = await pool.queryParam(query);
+            return result;
+        }catch(err){
+            console.log('READ USERS ERROR : ', err);
+            throw err;
+        }
+    },
     updateUserInfo : async(data) => {
         const query = `UPDATE user SET name = '${data.name}', department = '${data.department}', \`rank\` = '${data.rank}' WHERE id = '${data.id}'`;
         try{

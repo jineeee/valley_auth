@@ -3,6 +3,7 @@ package com.example.auth_client.auth
 import com.example.auth_client.Application
 import com.example.auth_client.data.pref.SharedPreferenceController
 import okhttp3.Interceptor
+import okhttp3.Request
 import okhttp3.Response
 
 class CookiesInterceptor : Interceptor {
@@ -15,13 +16,15 @@ class CookiesInterceptor : Interceptor {
         return chain.proceed(request)
     }
 
+//    var response: Response? = null
+//
 //    override fun intercept(chain: Interceptor.Chain): Response {
 //        val accessToken =
 //            SharedPreferenceController.getAuthorization(Application.getApplicationContext())
 //        var request =
 //            chain.request().newBuilder().header("Content-Type", "application/json")
-//                .header("token", accessToken)
-//                .build()
+//            .header("Authorization", "Bearer $accessToken")
+//            .build()
 //        val response = chain.proceed(request)
 //
 //        // access token이 만료된 경우 (401)
@@ -44,7 +47,7 @@ class CookiesInterceptor : Interceptor {
 //                    SharedPreferenceController.getRefreshAuthorization(Application.getApplicationContext())
 //                request =
 //                    chain.request().newBuilder().header("Content-Type", "application/json")
-//                        .header("token", updatedAccessToken)
+//                        .header("Authorization", "Bearer $updatedAccessToken")
 //                        .build()
 //                return chain.proceed(request)
 //            }

@@ -13,7 +13,6 @@ object NetworkServiceImpl {
         OkHttpClient.Builder()
             .authenticator(TokenAuthenticator())
             .addInterceptor(CookiesInterceptor())
-            .addNetworkInterceptor(CookiesInterceptor())
             .connectTimeout(1, TimeUnit.MINUTES)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
