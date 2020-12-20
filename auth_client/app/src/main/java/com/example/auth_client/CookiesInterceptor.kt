@@ -1,6 +1,6 @@
 package com.example.auth_client
 
-import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
+import com.example.auth_client.data.pref.SharedPreferenceController
 import okhttp3.Interceptor
 import okhttp3.Response
 

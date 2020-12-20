@@ -33,7 +33,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginRight="50dp"
             android:background="@drawable/bg_e6e6eb_35"
-            android:hint="회사 이메일을 입력해주세요."
+            android:hint="이메일을 입력해주세요."
             android:inputType="textEmailAddress"
             android:paddingStart="20dp"
             app:layout_constraintTop_toBottomOf="@+id/act_email_verify_tv_title" />

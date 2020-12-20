@@ -6,12 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.auth_client.R
 import com.example.auth_client.data.model.UserInfo
-import kotlinx.android.synthetic.main.item_user_info.*
-import kotlinx.android.synthetic.main.item_user_info.view.*
 
 class UserListAdapter(private val context: Context) : RecyclerView.Adapter<UserInfoViewHolder>(){
 

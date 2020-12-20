@@ -3,7 +3,6 @@ package com.example.auth_client.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.example.auth_client.R
 import com.example.auth_client.data.model.DefaultResponse

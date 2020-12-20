@@ -3,10 +3,9 @@ package com.example.auth_client.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
 import com.example.auth_client.R
+import com.example.auth_client.data.pref.SharedPreferenceController
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +27,11 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             val intent = Intent(this@MainActivity, UserListActivity::class.java)
+            startActivity(intent)
+        }
+
+        act_main_tv_change_pw.setOnClickListener {
+            val intent = Intent(this@MainActivity, ChangePwActivity::class.java)
             startActivity(intent)
         }
     }

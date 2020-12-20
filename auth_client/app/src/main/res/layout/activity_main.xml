@@ -54,6 +54,21 @@
             android:textSize="17sp"
             app:layout_constraintTop_toBottomOf="@id/act_main_tv_admin_verify" />
 
+        <TextView
+            android:id="@+id/act_main_tv_change_pw"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/bg_e6e6eb_35"
+            android:backgroundTint="@color/blue"
+            android:gravity="center"
+            android:text="비밀번호 변경"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            app:layout_constraintTop_toBottomOf="@id/act_main_tv_user_info" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

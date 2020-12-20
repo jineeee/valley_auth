@@ -2,16 +2,11 @@ package com.example.auth_client.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
 import com.example.auth_client.R
 import com.example.auth_client.data.model.DefaultResponse
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
-import kotlinx.android.synthetic.main.activity_email_verify.*
+import com.example.auth_client.data.pref.SharedPreferenceController
 import kotlinx.android.synthetic.main.activity_number_verify.*
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

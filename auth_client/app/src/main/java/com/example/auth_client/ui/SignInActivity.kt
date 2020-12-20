@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
 import com.example.auth_client.R
 import com.example.auth_client.data.model.SignInResponse
+import com.example.auth_client.data.pref.SharedPreferenceController
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_sign_in.*

@@ -4,10 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
 import com.example.auth_client.R
 import com.example.auth_client.data.model.DefaultResponse
-import com.example.auth_client.data.model.SignInResponse
 import kotlinx.android.synthetic.main.activity_id.*
 import retrofit2.Call
 import retrofit2.Callback

@@ -1,4 +1,4 @@
-package com.earlyBuddy.earlybuddy_android.data.pref
+package com.example.auth_client.data.pref
 
 import android.content.Context
 
@@ -23,6 +23,13 @@ object SharedPreferenceController{
         return pref.getString(admin, "")!!
     }
 
+    fun deleteAdmin(context: Context) {
+        val pref =
+            context.getSharedPreferences(USER_NAME, Context.MODE_PRIVATE) //현재 내 기기에서만 볼수 있는 데이터
+        val editor = pref.edit()
+        editor.remove(admin)
+        editor.apply()
+    }
 
     fun setAuthorization(context: Context, authorization: String) {
         val pref =
@@ -38,16 +45,11 @@ object SharedPreferenceController{
         return pref.getString(myAuth, "")!!
     }
 
-    fun setAutoLogin(context: Context, bool: Boolean){
-        val pref = context.getSharedPreferences(autoLogin, Context.MODE_PRIVATE) //현재 내 기기에서만 볼수 있는 데이터
+    fun deleteAuthorization(context: Context) {
+        val pref =
+            context.getSharedPreferences(USER_NAME, Context.MODE_PRIVATE) //현재 내 기기에서만 볼수 있는 데이터
         val editor = pref.edit()
-        editor.putBoolean(autoLogin, bool)
+        editor.remove(myAuth)
         editor.apply()
     }
-
-    fun getAutoLogin(context: Context) : Boolean {
-        val pref = context.getSharedPreferences(autoLogin, Context.MODE_PRIVATE) //현재 내 기기에서만 볼수 있는 데이터
-        return pref.getBoolean(autoLogin, false)
-    }
-
 }

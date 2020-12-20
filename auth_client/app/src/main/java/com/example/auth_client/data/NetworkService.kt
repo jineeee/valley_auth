@@ -28,6 +28,11 @@ interface NetworkService {
         @Body body: JsonObject
     ): Call<DefaultResponse>
 
+    @POST("/user/changePassword")
+    fun changePassword(
+        @Body body: JsonObject
+    ): Call<DefaultResponse>
+
     @POST("/user/verifyEmail")
     fun emailVerify(
         @Body body: JsonObject
