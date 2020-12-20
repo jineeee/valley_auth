@@ -1,5 +1,6 @@
-package com.example.auth_client
+package com.example.auth_client.auth
 
+import com.example.auth_client.Application
 import com.example.auth_client.data.pref.SharedPreferenceController
 import okhttp3.Interceptor
 import okhttp3.Response

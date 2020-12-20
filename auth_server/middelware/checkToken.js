@@ -8,7 +8,6 @@ const TOKEN_INVALID = -2;
 const checkToken = {
     checkToken: async (req, res, next) => {
         var token = req.headers.authorization.split(' ')[1];
-        console.log(token);
         // 토큰 없음
         if (!token)
             return res.json(util.fail(statusCode.BAD_REQUEST, responseMessage.EMPTY_TOKEN));

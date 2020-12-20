@@ -1,7 +1,6 @@
-import com.example.auth_client.CookiesInterceptor
-import com.example.auth_client.TokenAuthenticator
+import com.example.auth_client.auth.CookiesInterceptor
+import com.example.auth_client.auth.TokenAuthenticator
 import com.example.auth_client.data.NetworkService
-import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

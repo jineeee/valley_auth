@@ -1,6 +1,7 @@
-package com.example.auth_client
+package com.example.auth_client.auth
 
 import androidx.annotation.Nullable
+import com.example.auth_client.Application
 import com.example.auth_client.data.pref.SharedPreferenceController
 import okhttp3.Authenticator
 import okhttp3.Request
@@ -24,7 +25,9 @@ class TokenAuthenticator : Authenticator {
             }
 
             // Need to refresh an access token
-            val updatedAccessToken: String =  SharedPreferenceController.getRefreshAuthorization(Application.getApplicationContext())
+            val updatedAccessToken: String =  SharedPreferenceController.getRefreshAuthorization(
+                Application.getApplicationContext()
+            )
             return newRequestWithAccessToken(response.request(), updatedAccessToken)
         }
     }
