@@ -5,10 +5,7 @@ import com.example.auth_client.data.model.SignInResponse
 import com.example.auth_client.data.model.UserListResponse
 import com.google.gson.JsonObject
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
+import retrofit2.http.*
 
 interface NetworkService {
     @POST("/user/signup")
@@ -20,6 +17,16 @@ interface NetworkService {
     fun postSignIn(
         @Body body: JsonObject
     ): Call<SignInResponse>
+
+    @GET("/user/{id}")
+    fun userVerify(
+        @Path("id") id: String
+    ): Call<DefaultResponse>
+
+    @POST("/user/findPassword")
+    fun findPassword(
+        @Body body: JsonObject
+    ): Call<DefaultResponse>
 
     @POST("/user/verifyEmail")
     fun emailVerify(

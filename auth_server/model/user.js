@@ -29,5 +29,15 @@ module.exports = {
             console.err('ID CHECK ERROR : ', err);
             throw err;
         }
+    },
+    changePassword: async(data) => {
+        const query = `UPDATE user SET hashed = '${data.hashed}', salt = '${data.salt}' WHERE id = '${data.id}'`;
+        try{
+            const result = await pool.queryParam(query);
+            return result.affectedRows;
+        }catch(err){
+            console.log('CHANGE PASSWORD : ', err);
+            throw err;
+        }
     }
 }

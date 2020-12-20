@@ -25,7 +25,7 @@ class SignInActivity : AppCompatActivity() {
         onClick()
     }
 
-    fun onClick() {
+    private fun onClick() {
         act_sign_in_tv_sign_in.setOnClickListener {
             if (act_sign_in_et_id.text.isEmpty() || act_sign_in_et_pw.text.isEmpty()) {
                 Toast.makeText(this, "아이디와 비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show()
@@ -36,6 +36,11 @@ class SignInActivity : AppCompatActivity() {
 
         act_sign_in_tv_sign_up.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+
+        act_sign_in_tv_find_password.setOnClickListener {
+            val intent = Intent(this, IdActivity::class.java)
             startActivity(intent)
         }
     }
@@ -61,13 +66,16 @@ class SignInActivity : AppCompatActivity() {
                 ) {
                     when (response.code()) {
                         400 -> {
-                            Toast.makeText(this@SignInActivity, "아이디 또는 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@SignInActivity, "아이디 또는 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
+                        }
+                        401 -> {
+                            Toast.makeText(this@SignInActivity, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
                         }
                         200 -> {
                             SharedPreferenceController.setAuthorization(applicationContext,response.body()!!.data.accessToken)
                             SharedPreferenceController.setAdmin(applicationContext,response.body()!!.data.admin)
 
-                            Toast.makeText(this@SignInActivity, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@SignInActivity, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this@SignInActivity, MainActivity::class.java)
                             startActivity(intent)
                         }
