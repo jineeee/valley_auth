@@ -4,8 +4,6 @@ const util = require('../modules/util');
 const userModel = require('../model/user');
 const crypto = require('../modules/crypto');
 const jwt = require('../modules/jwt');
-const redis = require('redis');
-const redisClient = require('../modules/redis');
 
 module.exports = {
     // 회원 가입
