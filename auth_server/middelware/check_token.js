@@ -1,13 +1,13 @@
 const jwt = require('../modules/jwt');
-const responseMessage = require('../modules/responseMessage');
-const statusCode = require('../modules/statusCode');
+const responseMessage = require('../modules/response_message');
+const statusCode = require('../modules/status_code');
 const util = require('../modules/util');
 const TOKEN_EXPIRED = -3;
 const TOKEN_INVALID = -2;
 
 const checkToken = {
     checkToken: async (req, res, next) => {
-        var token = req.headers.authorization.split(" ")[1];
+        var token = req.headers.authorization.split(' ')[1];
         // 토큰 없음
         if (!token) {
             return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.EMPTY_TOKEN));

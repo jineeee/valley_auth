@@ -1,9 +1,7 @@
-const responseMessage = require('../modules/responseMessage');
-const statusCode = require('../modules/statusCode');
+const responseMessage = require('../modules/response_message');
+const statusCode = require('../modules/status_code');
 const util = require('../modules/util');
 const adminModel = require('../model/admin');
-const jwt = require('../modules/jwt');
-const redis = require('redis')
 const redisClient = require('../modules/redis');
 
 module.exports = {
@@ -39,21 +37,20 @@ module.exports = {
     // 개별 유저 정보 조회
     readUser: async (req, res) => {
         const userId = req.params.id;
-        redisClient.hget("userInfo", userId, function (err, data) {
+        redisClient.hget('userInfo', userId, function (err, data) {
             if (err) {
                 res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, err.message));
                 return;
             }
             data = JSON.parse(data);
             if (data != null) {
-                // console.log("redis -> ", data)
                 res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_SUCCESS, data[0]));
                 return;
             }
         });
         try {
             const result = await adminModel.readUser(userId);
-            redisClient.hset("userInfo", userId, JSON.stringify(result));
+            redisClient.hset('userInfo', userId, JSON.stringify(result));
             res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_SUCCESS, result[0]));
             return;
         } catch (err) {

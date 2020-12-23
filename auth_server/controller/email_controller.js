@@ -1,8 +1,8 @@
 const nodemailer = require('nodemailer');
 const smtpPool = require('nodemailer-smtp-pool');
-const emailConfig = require('../config/emailConfig');
-const responseMessage = require('../modules/responseMessage');
-const statusCode = require('../modules/statusCode');
+const emailConfig = require('../config/email_config');
+const responseMessage = require('../modules/response_message');
+const statusCode = require('../modules/status_code');
 const util = require('../modules/util');
 const userModel = require('../model/user');
 const crypto = require('../modules/crypto');
@@ -11,7 +11,7 @@ module.exports = {
     // 인증 이메일 전송
     verifyEmail: async (req, res) => {
         // 이메일 확인
-        if (!req.body.email || !req.body.email.includes("smilegate.com")) {
+        if (!req.body.email || !req.body.email.includes('smilegate.com')) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NOT_VALID_EMAIL));
             return;
         }

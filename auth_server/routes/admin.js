@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const adminController = require('../Controller/AdminController');
-const checkToken = require('../middelware/checkToken').checkToken;
+const adminController = require('../controller/admin_controller');
+const checkToken = require('../middelware/check_token').checkToken;
 
 router.get('/', checkToken, adminController.readUsers);
 router.put('/', checkToken, adminController.updateAdmin);

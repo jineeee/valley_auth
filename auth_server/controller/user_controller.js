@@ -1,9 +1,11 @@
-const responseMessage = require('../modules/responseMessage');
-const statusCode = require('../modules/statusCode');
+const responseMessage = require('../modules/response_message');
+const statusCode = require('../modules/status_code');
 const util = require('../modules/util');
 const userModel = require('../model/user');
 const crypto = require('../modules/crypto');
 const jwt = require('../modules/jwt');
+const redis = require('redis');
+const redisClient = require('../modules/redis');
 
 module.exports = {
     // 회원 가입
@@ -90,7 +92,36 @@ module.exports = {
             }));
             return;
         } catch (err) {
-            console.err(err);
+            console.error(err);
+            res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
+            return;
+        }
+    },
+    // 새 access token 발급
+    newToken: async (req, res) => {
+        try {
+            const refreshToken = req.body.refreshToken;
+            // 토큰 없음
+            if (!refreshToken) {
+                res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.EMPTY_TOKEN));
+                return;
+            }
+            const user = await jwt.verify(refreshToken);
+            // 만료된 토큰
+            if (user == -3) {
+                res.status(statusCode.UNAUTHORIZED).send(util.fail(statusCode.UNAUTHORIZED, responseMessage.EXPIRED_TOKEN));
+                return;
+                // 유효하지 않은 토큰
+            } else if (user == -2) {
+                res.status(statusCode.UNAUTHORIZED).send(util.fail(statusCode.UNAUTHORIZED, responseMessage.INVALID_TOKEN));
+                return;
+            }
+            // 새 access token 발급
+            const newToken = jwt.refresh(user);
+            res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.LOGIN_SUCCESS, newToken));
+            return;
+        } catch (err) {
+            console.log(err);
             res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
             return;
         }

@@ -7,7 +7,7 @@ module.exports = {
             const result = await pool.queryParam(query);
             return result;
         } catch (err) {
-            console.err("SIGN UP ERROR : ", err);
+            console.error('SIGN UP ERROR : ', err);
             throw err;
         }
     },
@@ -16,7 +16,7 @@ module.exports = {
         try {
             return await pool.queryParam(query);
         } catch (err) {
-            console.err("SIGN IN ERROR : ", err);
+            console.error('SIGN IN ERROR : ', err);
             throw err;
         }
     },
@@ -26,7 +26,7 @@ module.exports = {
             const result = await pool.queryParam(query);
             return result.length != 0;
         } catch (err) {
-            console.err("ID CHECK ERROR : ", err);
+            console.error('ID CHECK ERROR : ', err);
             throw err;
         }
     },
@@ -36,7 +36,7 @@ module.exports = {
             const result = await pool.queryParam(query);
             return result.affectedRows;
         } catch (err) {
-            console.log("CHANGE PASSWORD : ", err);
+            console.log('CHANGE PASSWORD : ', err);
             throw err;
         }
     }
