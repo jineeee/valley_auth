@@ -19,6 +19,11 @@ interface NetworkService {
         @Body body: JsonObject
     ): Call<SignInResponse>
 
+    @POST("/user/newToken")
+    fun getNewToken(
+        @Body body: JsonObject
+    ) : Call<DefaultResponse>
+
     @GET("/user/{id}")
     fun userVerify(
         @Path("id") id: String
