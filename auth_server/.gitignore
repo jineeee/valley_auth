@@ -1,4 +1,5 @@
 config/
+dump.rdb
 
 # Logs
 logs
