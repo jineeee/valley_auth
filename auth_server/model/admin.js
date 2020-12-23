@@ -7,17 +7,17 @@ module.exports = {
             const result = await pool.queryParam(query)
             return result.affectedRows;
         }catch(err){
-            console.log('UPDATE ADMIN ERROR : ', err);
+            console.log("UPDATE ADMIN ERROR : ", err);
             throw err;
         }
     },
     readUsers : async() => {
-        const query = 'SELECT id, name, department, `rank`, admin FROM user';
+        const query = "SELECT id, name, department, `rank`, admin FROM user";
         try{
             const result = await pool.queryParam(query);
             return result;
         }catch(err){
-            console.log('READ USERS ERROR : ', err);
+            console.log("READ USERS ERROR : ", err);
             throw err;
         }
     },
@@ -27,7 +27,7 @@ module.exports = {
             const result = await pool.queryParam(query);
             return result;
         }catch(err){
-            console.log('READ USERS ERROR : ', err);
+            console.log("READ USERS ERROR : ", err);
             throw err;
         }
     },
@@ -37,7 +37,7 @@ module.exports = {
             const result = await pool.queryParam(query);
             return result.affectedRows;
         }catch(err){
-            console.log('UPDATE USER INFO ERROR : ', err);
+            console.log("UPDATE USER INFO ERROR : ", err);
             throw err;
         }
     }

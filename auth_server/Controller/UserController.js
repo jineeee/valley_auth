@@ -116,7 +116,7 @@ module.exports = {
         const pw = req.body.pw;
         const newPw = req.body.newPw;
 
-        try{
+        try {
             const userResult = await userModel.signIn(id);
             // 존재하지 않는 계정
             if (userResult[0] === undefined) {
@@ -131,8 +131,15 @@ module.exports = {
                 return;
             }
 
-            var {salt, hashed} = await crypto.encrypt(newPw);
-            const data = {id, salt, hashed};
+            var {
+                salt,
+                hashed
+            } = await crypto.encrypt(newPw);
+            const data = {
+                id,
+                salt,
+                hashed
+            };
             const result = await userModel.changePassword(data);
             if (result != 0) {
                 res.status(statusCode.OK).send(util.successWithoutData(statusCode.OK, responseMessage.UPDATE_SUCCESS));
@@ -140,7 +147,7 @@ module.exports = {
             }
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.DB_ERROR));
             return;
-        }catch(err){
+        } catch (err) {
             res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
             return;
         }

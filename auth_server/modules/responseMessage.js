@@ -36,5 +36,5 @@ module.exports = {
     SEND_EMAIL_FAIL: "이메일 전송 실패",
     NOT_VALID_EMAIL: "회사 이메일이 아닙니다.",
 
-    DB_ERROR: 'DB 오류'
+    DB_ERROR: "DB 오류"
 };

@@ -20,13 +20,5 @@ module.exports = {
             success: false,
             message: message
         }
-    },
-    failWithData: (status, message, data) => {
-        return {
-            status: status,
-            success: true,
-            message: message,
-            data: data
-        }
-    },
+    }
 };
