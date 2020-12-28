@@ -152,8 +152,9 @@ module.exports = {
                 res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER));
                 return;
             }
-
+            
             var hashed = await crypto.encryptWithSalt(pw, userResult[0].salt);
+            console.log("hashed-> ", hashed);
             // 비밀번호 불일치
             if (hashed !== userResult[0].hashed) {
                 res.status(statusCode.UNAUTHORIZED).send(util.fail(statusCode.UNAUTHORIZED, responseMessage.MISS_MATCH_PW));

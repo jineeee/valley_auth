@@ -96,27 +96,27 @@ module.exports = {
             maxMessages: 10,
         }));
 
-        transporter.sendMail(mailOptions)
-            .then(async (value) => {
-                const {
-                    salt,
-                    hashed
-                } = await crypto.encrypt(tempPassword);
-                const data = {
-                    id,
-                    salt,
-                    hashed
-                };
-                const result = await userModel.changePassword(data);
-                if (result != 0) {
-                    res.status(statusCode.OK).send(util.successWithoutData(statusCode.OK, responseMessage.SEND_EMAIL));
-                    return;
-                }
-                res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.DB_ERROR));
+        try{
+            await transporter.sendMail(mailOptions);
+            const {
+                salt,
+                hashed
+            } = await crypto.encrypt(tempPassword);
+            const data = {
+                id,
+                salt,
+                hashed
+            };
+            const result = await userModel.changePassword(data);
+            if (result != 0) {
+                res.status(statusCode.OK).send(util.successWithoutData(statusCode.OK, responseMessage.SEND_EMAIL));
                 return;
-            }).catch(err => {
-                res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.SEND_EMAIL_FAIL));
-                return;
-            });
+            }
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.DB_ERROR));
+            return;
+        }catch(err){
+            res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.SEND_EMAIL_FAIL));
+            return;
+        }
     }
 }
