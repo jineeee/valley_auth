@@ -59,4 +59,4 @@
 - Email config
   - 인증번호 및 임시 비밀번호 발급을 위한 email 전송 계정 정보 설정
 - DB  connection
-  - DB connections을 module화 하여 설정
+  - DB connection을 module화 하여 설정
