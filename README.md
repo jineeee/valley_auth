@@ -43,3 +43,20 @@
   - 관리자로 등록된 유저는 사용자 조회 페이지에서 사용자 정보 수정 가능
   - 캐시 데이터 확인 후 존재한다면 캐시 데이터 반환
   - 최초로 조회하는 정보는 캐시 데이터에 저장
+
+<br>
+
+### 📘DB 테이블
+
+<img width="567" alt="스크린샷 2020-12-28 오후 10 33 03" src="https://user-images.githubusercontent.com/37479631/103217856-ff102880-495c-11eb-8131-a91b5ffd5ad3.png">
+
+<br>
+
+### 📙Config 설정
+
+- secret key
+  - Token 발급 시 필요한 secret key와 option 설정
+- Email config
+  - 인증번호 및 임시 비밀번호 발급을 위한 email 전송 계정 정보 설정
+- DB  connection
+  - DB connections을 module화 하여 설정
