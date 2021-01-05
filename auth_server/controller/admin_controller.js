@@ -16,7 +16,7 @@ module.exports = {
                 return;
             }
             // DB 저장 실패
-            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.UPDATE_FAIL));
+            res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMessage.UPDATE_FAIL));
             return;
         } catch (err) {
             res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
@@ -37,20 +37,20 @@ module.exports = {
     // 개별 유저 정보 조회
     readUser: async (req, res) => {
         const userId = req.params.id;
-        redisClient.hget('userInfo', userId, function (err, data) {
-            if (err) {
-                res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, err.message));
-                return;
-            }
-            data = JSON.parse(data);
-            if (data != null) {
-                res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_SUCCESS, data[0]));
-                return;
-            }
-        });
+        // redisClient.hget('userInfo', userId, function (err, data) {
+        //     if (err) {
+        //         res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, err.message));
+        //         return;
+        //     }
+        //     data = JSON.parse(data);
+        //     if (data != null) {
+        //         res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_SUCCESS, data[0]));
+        //         return;
+        //     }
+        // });
         try {
             const result = await adminModel.readUser(userId);
-            redisClient.hset('userInfo', userId, JSON.stringify(result));
+            // redisClient.hset('userInfo', userId, JSON.stringify(result));
             res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_SUCCESS, result[0]));
             return;
         } catch (err) {
@@ -68,7 +68,7 @@ module.exports = {
         } = req.body;
         // NULL 값 확인
         if (!id || !name || !department || !rank) {
-            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
+            return res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
         }
 
         try {
@@ -82,7 +82,7 @@ module.exports = {
             if (result != 0) {
                 return res.status(statusCode.OK).send(util.successWithoutData(statusCode.OK, responseMessage.UPDATE_SUCCESS));
             }
-            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.UPDATE_FAIL));
+            return res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMessage.UPDATE_FAIL));
         } catch (err) {
             return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
         }

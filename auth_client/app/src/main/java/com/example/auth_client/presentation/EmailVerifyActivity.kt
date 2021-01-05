@@ -1,4 +1,4 @@
-package com.example.auth_client.ui
+package com.example.auth_client.presentation
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

@@ -10,12 +10,6 @@ const crypto = require('../modules/crypto');
 module.exports = {
     // 인증 이메일 전송
     verifyEmail: async (req, res) => {
-        // 이메일 확인
-        if (!req.body.email || !req.body.email.includes('smilegate.com')) {
-            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NOT_VALID_EMAIL));
-            return;
-        }
-
         const from = 'AUTH_SERVER';
         const to = req.body.email;
         const subject = '관리자 인증 메일입니다';
@@ -63,7 +57,7 @@ module.exports = {
 
         // 이메일 확인
         if (!email) {
-            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
+            res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
             return;
         }
 
@@ -112,7 +106,7 @@ module.exports = {
                 res.status(statusCode.OK).send(util.successWithoutData(statusCode.OK, responseMessage.SEND_EMAIL));
                 return;
             }
-            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.DB_ERROR));
+            res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMessage.DB_ERROR));
             return;
         }catch(err){
             res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.SEND_EMAIL_FAIL));

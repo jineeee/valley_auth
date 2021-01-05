@@ -17,12 +17,12 @@ module.exports = {
         } = req.body;
         // NULL 값 확인
         if (!id || !pw || !name || !department || !rank) {
-            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
+            res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
             return;
         }
         // ID 중복 확인
         if (await userModel.idCheck(req.body.id)) {
-            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.DUPLICATE_ID));
+            res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMessage.DUPLICATE_ID));
             return;
         }
 
@@ -42,11 +42,11 @@ module.exports = {
             const idx = await userModel.signUp(data);
             // DB 저장 실패
             if (idx == -1) {
-                res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.DB_ERROR));
+                res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMessage.DB_ERROR));
                 return;
             }
             // 성공
-            return res.status(statusCode.CREATED).send(util.successWithoutData(statusCode.OK, responseMessage.CREATE_USER_SUCCESS));
+            return res.status(statusCode.CREATED).send(util.successWithoutData(statusCode.CREATED, responseMessage.CREATE_USER_SUCCESS));
         } catch (err) {
             res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
             return;
@@ -60,20 +60,20 @@ module.exports = {
         } = req.body;
         // 값 확인
         if (!id || !pw) {
-            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
+            res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
             return;
         }
         try {
             const userResult = await userModel.signIn(id);
             // 존재하지 않는 계정
             if (userResult[0] === undefined) {
-                res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER));
+                res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER));
                 return;
             }
             const hashed = await crypto.encryptWithSalt(pw, userResult[0].salt);
             // 비밀번호 불일치
             if (hashed !== userResult[0].hashed) {
-                res.status(statusCode.UNAUTHORIZED).send(util.fail(statusCode.UNAUTHORIZED, responseMessage.MISS_MATCH_PW));
+                res.status(statusCode.OK).send(util.fail(statusCode.UNAUTHORIZED, responseMessage.MISS_MATCH_PW));
                 return;
             }
             const {
@@ -132,7 +132,7 @@ module.exports = {
                 res.status(statusCode.OK).send(util.successWithoutData(statusCode.OK, responseMessage.READ_SUCCESS));
                 return;
             }
-            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER));
+            res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER));
             return;
         } catch (err) {
             res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
@@ -149,7 +149,7 @@ module.exports = {
             const userResult = await userModel.signIn(id);
             // 존재하지 않는 계정
             if (userResult[0] === undefined) {
-                res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER));
+                res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER));
                 return;
             }
             
@@ -157,7 +157,7 @@ module.exports = {
             console.log("hashed-> ", hashed);
             // 비밀번호 불일치
             if (hashed !== userResult[0].hashed) {
-                res.status(statusCode.UNAUTHORIZED).send(util.fail(statusCode.UNAUTHORIZED, responseMessage.MISS_MATCH_PW));
+                res.status(statusCode.OK).send(util.fail(statusCode.UNAUTHORIZED, responseMessage.MISS_MATCH_PW));
                 return;
             }
 
@@ -175,7 +175,7 @@ module.exports = {
                 res.status(statusCode.OK).send(util.successWithoutData(statusCode.OK, responseMessage.UPDATE_SUCCESS));
                 return;
             }
-            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.DB_ERROR));
+            res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMessage.DB_ERROR));
             return;
         } catch (err) {
             res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, err.message));
